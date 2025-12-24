@@ -1,41 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 // Главная страница
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [MainController::class, 'index'])->name('home');
 
-// Страница "О нас"
+// О нас
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-// Страница "Контакты" с передачей массива данных
+// Контакты
 Route::get('/contacts', function () {
     $contacts = [
-        [
-            'type' => 'Телефон',
-            'value' => '+7 (495) 123-45-67'
-        ],
-        [
-            'type' => 'Email',
-            'value' => 'info@mysite.ru'
-        ],
-        [
-            'type' => 'Телеграм',
-            'value' => '@mysite_support'
-        ],
-        [
-            'type' => 'VK',
-            'value' => 'vk.com/mysite'
-        ],
-        [
-            'type' => 'Рабочий чат',
-            'value' => 'contact@mysite.ru'
-        ]
+        ['type' => 'Телефон', 'value' => '+7 (495) 123-45-67'],
+        ['type' => 'Email', 'value' => 'info@example.com'],
+        ['type' => 'Telegram', 'value' => '@example'],
+        ['type' => 'Адрес', 'value' => 'г. Москва, ул. Примерная, д. 123'],
     ];
-    
     return view('contacts', ['contacts' => $contacts]);
 })->name('contacts');
+
+// Галерея
+Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{id}', [MainController::class, 'gallery'])->name('gallery.show');
