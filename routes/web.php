@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\MainController;
 
 // Главная страница
@@ -25,3 +26,20 @@ Route::get('/contacts', function () {
 // Галерея
 Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{id}', [MainController::class, 'gallery'])->name('gallery.show');
+=======
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+>>>>>>> 2245a15 (first commit)

@@ -16,7 +16,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
      'name' => env('APP_NAME', 'Laravel'),
+=======
+    'name' => env('APP_NAME', 'Laravel'),
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +46,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'debug' => (bool) env('APP_DEBUG', true),
+=======
+    'debug' => (bool) env('APP_DEBUG', false),
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +65,11 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+<<<<<<< HEAD
     'asset_url' => env('ASSET_URL'),  'url' => env('APP_URL', 'http://localhost'),
+=======
+    'asset_url' => env('ASSET_URL'),
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +82,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'timezone'  => env('APP_TIMEZONE', 'Europe/Moscow'),
+=======
+    'timezone' => 'UTC',
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +99,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'locale' => env('APP_LOCALE', 'ru'),
+=======
+    'locale' => 'en',
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +116,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'fallback_locale' => 'RU',
+=======
+    'fallback_locale' => 'en',
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +133,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'faker_locale' => 'ru_RU',
+=======
+    'faker_locale' => 'en_US',
+>>>>>>> 2245a15 (first commit)
 
     /*
     |--------------------------------------------------------------------------
