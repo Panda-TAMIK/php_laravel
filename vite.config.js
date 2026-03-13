@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     plugins: [
+        vue(),
         laravel({
 <<<<<<< HEAD
             input: [
@@ -20,5 +22,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+<<<<<<< HEAD
 });
 >>>>>>> 2245a15 (first commit)
+=======
+});
+>>>>>>> 019e4b8 (finish laravel)
