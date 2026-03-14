@@ -1,32 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Http\Controllers\MainController;
-
-// Главная страница
-Route::get('/', [MainController::class, 'index'])->name('home');
-
-// О нас
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-// Контакты
-Route::get('/contacts', function () {
-    $contacts = [
-        ['type' => 'Телефон', 'value' => '+7 (495) 123-45-67'],
-        ['type' => 'Email', 'value' => 'info@example.com'],
-        ['type' => 'Telegram', 'value' => '@example'],
-        ['type' => 'Адрес', 'value' => 'г. Москва, ул. Примерная, д. 123'],
-    ];
-    return view('contacts', ['contacts' => $contacts]);
-})->name('contacts');
-
-// Галерея
-Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
-Route::get('/gallery/{id}', [MainController::class, 'gallery'])->name('gallery.show');
-=======
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +16,6 @@ Route::get('/gallery/{id}', [MainController::class, 'gallery'])->name('gallery.s
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CommentController;
 
 // Main pages
 Route::get('/', [MainController::class, 'index']);
@@ -61,13 +34,12 @@ Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::post('/auth/authenticate', [AuthController::class, 'authenticate']);
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-Route::get('/about', function(){
+// Static pages
+Route::get('/about', function () {
     return view('main.about');
 });
-<<<<<<< HEAD
->>>>>>> 2245a15 (first commit)
-=======
 
+// Comments moderation
 Route::controller(CommentController::class)
     ->prefix('comment')
     ->middleware('auth')
@@ -81,7 +53,8 @@ Route::controller(CommentController::class)
         Route::get('/reject/{comment}', 'reject')->name('comment.reject');
     });
 
-Route::get('/contacts', function(){
+// Contacts
+Route::get('/contacts', function () {
     $array = [
         'name' => 'MosPolytech',
         'address' => 'Bolshaya Semenovskaya',
@@ -91,4 +64,4 @@ Route::get('/contacts', function(){
 
     return view('main/contacts', ['contacts' => $array]);
 });
->>>>>>> 019e4b8 (finish laravel)
+

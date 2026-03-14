@@ -26,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        Blade::directive('active', function($url){
-            return "<?php echo request()->is($url) ? 'active' : '';?>";
+        Blade::directive('active', function ($expression) {
+            return "<?php echo request()->is({$expression}) ? 'active' : ''; ?>";
         });
 
         Paginator::useBootstrapFive();

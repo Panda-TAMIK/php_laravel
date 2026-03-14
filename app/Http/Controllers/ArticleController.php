@@ -51,8 +51,15 @@ class ArticleController extends Controller
         Gate::authorize('create', Article::class);
         $request->validate([
             'date' => 'required|date',
-            'title' => 'required|min:10',
-            'text' => 'max:100'
+            'title' => 'required|min:3|max:255',
+            'text' => 'required|max:255',
+        ], [
+            'date.required' => 'Укажите дату публикации.',
+            'title.required' => 'Введите заголовок.',
+            'title.min' => 'Заголовок не короче 3 символов.',
+            'title.max' => 'Заголовок не длиннее 255 символов.',
+            'text.required' => 'Введите текст статьи.',
+            'text.max' => 'Текст статьи не длиннее 255 символов.',
         ]);
         $article = new Article;
         $article->publish_date = $request->date;
@@ -96,13 +103,20 @@ class ArticleController extends Controller
         Gate::authorize('update', $article);
         $request->validate([
             'date' => 'required|date',
-            'title' => 'required|min:10',
-            'text' => 'max:100'
+            'title' => 'required|min:3|max:255',
+            'text' => 'required|max:255',
+        ], [
+            'date.required' => 'Укажите дату публикации.',
+            'title.required' => 'Введите заголовок.',
+            'title.min' => 'Заголовок не короче 3 символов.',
+            'title.max' => 'Заголовок не длиннее 255 символов.',
+            'text.required' => 'Введите текст статьи.',
+            'text.max' => 'Текст статьи не длиннее 255 символов.',
         ]);
         $article->publish_date = $request->date;
         $article->title = request('title');
         $article->text = $request->text;
-        $article->users_id = 1;
+        $article->users_id = auth()->id();
         if($article->save()){
             $keys = DB::table('cache')->whereRaw('`key` GLOB :key', [':key'=>'articles_*[0-9]'])->get();
             foreach($keys as $param){

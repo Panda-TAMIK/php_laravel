@@ -19,7 +19,8 @@
   </div>
   <div class="mb-3">
     <label for="text" class="form-label">Text</label>
-    <textarea name="text" id="text" class="form-control">{{$article->text}}"</textarea>
+    <textarea name="text" id="text" class="form-control" rows="12" maxlength="255">{{ $article->text }}</textarea>
+        <div class="form-text">Максимум 255 символов.</div>
   </div>
   <button type="submit" class="btn btn-primary">Update</button>
 </form>

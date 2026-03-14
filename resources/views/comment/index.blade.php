@@ -1,38 +1,63 @@
 @extends('layout')
 @section('content')
- @if(session()->has('message'))
-  <div class="alert alert-success" role="alert">
-      {{session('message')}}
-  </div>
-@endif
+@section('breadcrumb')
+  <li class="breadcrumb-item"><a href="/">Главная</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Модерация комментариев</li>
+@endsection
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Date public</th>
-      <th scope="col">Author</th>
-      <th scope="col">Article</th>
-      <th scope="col">Text</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($comments as $comment)
-    <tr>
-      <th scope="row">{{$comment->created_at}}</th>
-      <td>{{App\Models\User::FindOrFail($comment->user_id)->name}}</td>
-      <td><a href="/article/{{App\Models\Article::FindOrFail($comment->article_id)->id}}">{{App\Models\Article::FindOrFail($comment->article_id)->title}}</a></td>
-      <td>{{$comment->text}}</td>
-      <td>
-        @if(!$comment->accept)  
-            <a href="/comment/accept/{{$comment->id}}" class="btn btn-primary">Accept</a>
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h1 class="h4 mb-0">Модерация комментариев</h1>
+  <span class="text-muted small">Всего на странице: {{ $comments->count() }}</span>
+</div>
+
+@forelse($comments as $comment)
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between gap-3 flex-wrap">
+        <div>
+          <div class="small text-muted">Автор</div>
+          <div class="fw-semibold">{{ \App\Models\User::findOrFail($comment->user_id)->name }}</div>
+        </div>
+        <div>
+          <div class="small text-muted">Дата</div>
+          <div class="fw-semibold">{{ $comment->created_at->format('d.m.Y H:i') }}</div>
+        </div>
+        <div class="flex-grow-1">
+          <div class="small text-muted">Статья</div>
+          <div class="fw-semibold">
+            <a href="/article/{{ \App\Models\Article::findOrFail($comment->article_id)->id }}">
+              {{ \App\Models\Article::findOrFail($comment->article_id)->title }}
+            </a>
+          </div>
+        </div>
+        <div>
+          @if($comment->accept)
+            <span class="badge text-bg-success">Принят</span>
+          @else
+            <span class="badge text-bg-warning">На модерации</span>
+          @endif
+        </div>
+      </div>
+
+      <hr class="my-3">
+      <p class="mb-3">{{ $comment->text }}</p>
+
+      <div class="d-flex gap-2">
+        @if(!$comment->accept)
+          <a href="/comment/accept/{{ $comment->id }}" class="btn btn-sm btn-success">Принять</a>
         @else
-            <a href="/comment/reject/{{$comment->id}}" class="btn btn-warning">Reject</a>
+          <a href="/comment/reject/{{ $comment->id }}" class="btn btn-sm btn-outline-warning">Вернуть на модерацию</a>
         @endif
-       </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-{{$comments->links()}}
+      </div>
+    </div>
+  </div>
+@empty
+  <div class="alert alert-info" role="alert">
+    Пока нет комментариев для модерации.
+  </div>
+@endforelse
+
+<div class="mt-4">
+  {{ $comments->links() }}
+</div>
 @endsection

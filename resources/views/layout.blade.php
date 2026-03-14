@@ -26,24 +26,24 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link @active('/')" href="/">Главная</a>
+                                <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Главная</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @active('article')" href="/article">Статьи</a>
+                                <a class="nav-link {{ request()->is('article*') ? 'active' : '' }}" href="/article">Статьи</a>
                             </li>
                             @can('create', \App\Models\Article::class)
                             <li class="nav-item">
-                                <a class="nav-link @active('article/create')" href="/article/create">Новая статья</a>
+                                <a class="nav-link {{ request()->is('article/create') ? 'active' : '' }}" href="/article/create">Новая статья</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @active('comment')" href="/comment">Модерация комментариев</a>
+                                <a class="nav-link {{ request()->is('comment*') ? 'active' : '' }}" href="/comment">Модерация комментариев</a>
                             </li>
                             @endcan
                             <li class="nav-item">
-                                <a class="nav-link @active('about')" href="/about">О проекте</a>
+                                <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">О проекте</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @active('contact')" href="/contacts">Контакты</a>
+                                <a class="nav-link {{ request()->is('contacts') ? 'active' : '' }}" href="/contacts">Контакты</a>
                             </li>
                         </ul>
 
@@ -102,6 +102,21 @@
         <main>
           <div class="container mb-5">
             <div id="app"></div>
+
+            @hasSection('breadcrumb')
+              <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb mb-0">
+                  @yield('breadcrumb')
+                </ol>
+              </nav>
+            @endif
+
+            @if(session()->has('message'))
+              <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+              </div>
+            @endif
+
             @yield('content')
           </div>
         </main>
